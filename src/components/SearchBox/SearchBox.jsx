@@ -1,4 +1,3 @@
-import React from 'react';
 import { TextField, Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -16,7 +15,6 @@ const SearchBox = () => {
         label="Find contacts"
         variant="outlined"
         size="small"
-        fullWidth
         value={value}
         onChange={e => dispatch(changeFilter(e.target.value))}
       />

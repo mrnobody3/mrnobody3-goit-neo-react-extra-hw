@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik';
 import { TextField, Button, Box } from '@mui/material';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../../redux/contacts/contactsOps';
+import { addContact } from '../../redux/contacts/operations';
 import { selectContactLoading } from '../../redux/contacts/contactsSlice';
 
 const ContactForm = ({ initialValues = { name: '', phone: '' } }) => {

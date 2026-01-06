@@ -1,1 +1,1 @@
-export * from './contacts/contactsOps';
+export * from './contacts/operations';

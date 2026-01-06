@@ -9,7 +9,7 @@ import {
   selectFilteredContacts,
   selectContactLoading,
 } from '../../redux/contacts/contactsSlice';
-import { deleteContact } from '../../redux/contacts/contactsOps';
+import { deleteContact } from '../../redux/contacts/operations';
 
 const ContactList = () => {
   const dispatch = useDispatch();
