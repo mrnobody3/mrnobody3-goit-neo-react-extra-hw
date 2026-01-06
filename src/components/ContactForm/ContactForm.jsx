@@ -1,30 +1,26 @@
-import { Field, Form, Formik, ErrorMessage } from "formik";
-import clsx from "clsx";
-import css from "./ContactForm.module.css";
-import { useId } from "react";
-import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import { addContact } from "../../redux/contactsOps";
-import { selectLoading } from "../../redux/contactsSlice";
+import { Form, Formik } from 'formik';
+import { TextField, Button, Box } from '@mui/material';
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from '../../redux/contacts/contactsOps';
+import { selectContactLoading } from '../../redux/contacts/contactsSlice';
 
-const ContactForm = ({ initialValues = { name: "", phone: "" } }) => {
-  const nameFieldId = useId();
-  const numberFieldId = useId();
+const ContactForm = ({ initialValues = { name: '', phone: '' } }) => {
   const FeedbackSchema = Yup.object().shape({
     name: Yup.string()
-      .matches(/^[a-z A-Z+\-\s()]+$/, "Only letters")
-      .min(3, "To Short!")
-      .max(50, "To Long!")
-      .required("Required"),
+      .matches(/^[a-z A-Z+\-\s()]+$/, 'Only letters')
+      .min(3, 'To Short!')
+      .max(50, 'To Long!')
+      .required('Required'),
     phone: Yup.string()
-      .min(3, "To Short!")
-      .max(20, "To Long!")
-      .required("Required")
-      .matches(/^[0-9+\-\s()]+$/, "Only digits and phone symbols"),
+      .min(3, 'To Short!')
+      .max(20, 'To Long!')
+      .required('Required')
+      .matches(/^[0-9+\-\s()]+$/, 'Only digits and phone symbols'),
   });
 
   const dispatch = useDispatch();
-  const loading = useSelector(selectLoading);
+  const loading = useSelector(selectContactLoading);
 
   const handleSubmit = (values, actions) => {
     dispatch(
@@ -42,33 +38,33 @@ const ContactForm = ({ initialValues = { name: "", phone: "" } }) => {
       onSubmit={handleSubmit}
       validationSchema={FeedbackSchema}
       validateOnChange
-      validateOnBlur>
-      <Form className={clsx(css.formContainer)}>
-        <label htmlFor={nameFieldId}>Name</label>
-        <Field
-          type="text"
-          name="name"
-          id={nameFieldId}
-          className={clsx(css.field)}
-        />
-        <ErrorMessage
-          name="name"
-          component="p"
-          id={nameFieldId}
-          className={clsx(css.error)}
-        />
-        <label htmlFor={numberFieldId}>Number</label>
-        <Field type="text" name="phone" id={numberFieldId} />
-        <ErrorMessage
-          name="phone"
-          component="p"
-          id={numberFieldId}
-          className={clsx(css.error)}
-        />
-        <button type="submit" disabled={loading}>
-          Add contact
-        </button>
-      </Form>
+      validateOnBlur
+    >
+      {({ values, handleChange, handleBlur }) => (
+        <Form>
+          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', mb: 2 }}>
+            <TextField
+              name="name"
+              label="Name"
+              value={values.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              size="small"
+            />
+            <TextField
+              name="phone"
+              label="Number"
+              value={values.phone}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              size="small"
+            />
+            <Button type="submit" variant="contained" disabled={loading}>
+              Add
+            </Button>
+          </Box>
+        </Form>
+      )}
     </Formik>
   );
 };

@@ -1,30 +1,41 @@
-import clsx from "clsx";
-import css from "./ContactList.module.css";
-import Contact from "../Contact/Contact";
-import { useSelector, useDispatch } from "react-redux";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 import {
   selectFilteredContacts,
-  selectLoading,
-} from "../../redux/contactsSlice";
-import { deleteContact } from "../../redux/contactsOps";
+  selectContactLoading,
+} from '../../redux/contacts/contactsSlice';
+import { deleteContact } from '../../redux/contacts/contactsOps';
 
 const ContactList = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectFilteredContacts);
-  const loading = useSelector(selectLoading);
+  const loading = useSelector(selectContactLoading);
 
   return (
-    <ul className={clsx(css.list)}>
-      {contacts.map((task) => (
-        <li key={task.id} className={clsx(css.item)}>
-          <Contact
-            data={task}
-            onDelete={(id) => dispatch(deleteContact(id))}
-            disabled={loading}
-          />
-        </li>
+    <List>
+      {contacts.map(item => (
+        <ListItem
+          key={item.id}
+          secondaryAction={
+            <IconButton
+              edge="end"
+              aria-label="delete"
+              onClick={() => dispatch(deleteContact(item.id))}
+              disabled={loading}
+            >
+              <DeleteIcon />
+            </IconButton>
+          }
+        >
+          <ListItemText primary={item.name} secondary={item.phone} />
+        </ListItem>
       ))}
-    </ul>
+    </List>
   );
 };
 

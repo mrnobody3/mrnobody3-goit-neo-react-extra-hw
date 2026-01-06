@@ -1,23 +1,25 @@
-import { FaUser, FaPhoneAlt } from "react-icons/fa";
-import clsx from "clsx";
-import css from "./Contact.module.css";
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 const Contact = ({ data: { id, name, phone }, onDelete, disabled }) => {
   return (
-    <div className={clsx(css.item)}>
-      <div className={clsx(css.info)}>
-        <div className={clsx(css.row)}>
-          <FaUser className={clsx(css.icon)} />
-          <p>{name}</p>
-        </div>
-        <div className={clsx(css.row)}>
-          <FaPhoneAlt className={clsx(css.icon)} />
-          <address>{phone}</address>
-        </div>
-      </div>
-      <button onClick={() => onDelete(id)} disabled={disabled}>
-        Delete
-      </button>
-    </div>
+    <ListItem
+      secondaryAction={
+        <IconButton
+          edge="end"
+          aria-label="delete"
+          onClick={() => onDelete(id)}
+          disabled={disabled}
+        >
+          <DeleteIcon />
+        </IconButton>
+      }
+    >
+      <ListItemText primary={name} secondary={phone} />
+    </ListItem>
   );
 };
+
 export default Contact;
