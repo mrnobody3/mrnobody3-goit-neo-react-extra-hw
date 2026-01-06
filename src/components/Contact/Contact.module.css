@@ -1,0 +1,49 @@
+.item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 10px;
+  gap: 10px;
+  background: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.05);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.item button {
+  margin-left: auto;
+  height: 34px;
+  width: 72px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #f1f8ff;
+  cursor: pointer;
+}
+
+.item button:hover {
+  background: #dbeffc;
+}
+
+p {
+  margin: 0;
+}
+
+.name {
+  font-weight: 600;
+  color: #0f172a;
+}
+.number {
+  color: #475569;
+  font-size: 0.95rem;
+}
